@@ -1,0 +1,793 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:100,300,400,700);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  background: radial-gradient(50vmin 50vmin, #FEB4FF, #A3A3EC);
+  background-position: -20vw center;
+  background-repeat: no-repeat;
+  background-color: #a3a3ec;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Lato', sans-serif;
+}
+
+@media (max-width: 600px) {
+  html, body {
+    background-position: center -20vw;
+  }
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  padding: 20px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 15px 40px;
+  border: 2px solid white;
+  border-radius: 50px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 20px;
+  font-weight: 300;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+  backdrop-filter: blur(10px);
+  font-family: 'Lato', sans-serif;
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+#eeveeContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 350px;
+}
+/* ========== ОБЕРТКА ========== */
+.eevee-wrapper {
+  width: 410px;
+  height: 325px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.eevee-wrapper.active {
+  opacity: 1;
+}
+
+@media (max-width: 600px) {
+  .eevee-wrapper {
+    transform: scale(0.8);
+  }
+}
+
+@media (max-width: 300px) {
+  .eevee-wrapper {
+    transform: scale(0.5);
+  }
+}
+
+/* ========== КОНТЕЙНЕР ========== */
+.eevee {
+  height: 325px;
+  width: 410px;
+  position: relative;
+}
+
+.eevee * {
+  position: absolute;
+}
+
+/* ========== ТЕЛО ========== */
+.eevee .body {
+  animation: bodyAnim 10s cubic-bezier(0.645, 0.045, 0.355, 1) both infinite;
+  height: 100px;
+  width: 125px;
+  top: 164px;
+  left: 140px;
+  background: #C49152;
+  border-top-right-radius: 30%;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 70%;
+  box-shadow: inset -15px 0 0 #9D7442;
+}
+
+/* ========== ГРУДЬ ========== */
+.eevee .chest {
+  animation: chestAnim 10s 0.05s cubic-bezier(0.645, 0.045, 0.355, 1) both infinite;
+  height: 110%;
+  width: 130px;
+  left: -30px;
+  z-index: 1;
+}
+
+/* ========== МЕХ ========== */
+.eevee .fur {
+  height: 80px;
+  width: 80px;
+  top: 0;
+  border-radius: 50%;
+  background: linear-gradient(to top, #EFE1AF, white 40%, white 50%, #EFE1AF 75%);
+}
+
+.eevee .fur:first-child {
+  animation: furCenterAnim 10s 0.1s cubic-bezier(0.645, 0.045, 0.355, 1) both infinite;
+  height: 110px;
+  width: 110px;
+  left: calc(50% - 55px);
+  z-index: 1;
+  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.2), 3px 0 15px rgba(0,0,0,0.2);
+}
+
+.eevee .fur:first-child > .patch {
+  height: 50%;
+  width: 50%;
+  left: 25%;
+  transform-style: none;
+  bottom: 8%;
+}
+
+.eevee .fur:first-child > .patch:before {
+  animation: furCenterPatchLeftAnim 10s cubic-bezier(0.645, 0.045, 0.355, 1) both infinite;
+  content: '';
+  position: absolute;
+  left: 25%;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(65deg) skewX(15deg);
+  box-shadow: 2px 0 #BFB48C;
+  background: linear-gradient(-45deg, #BFB48C, #EFE1AF 9%, transparent 20%);
+  border-top-right-radius: 60%;
+  border-bottom-right-radius: 8%;
+}
+
+.eevee .fur:first-child > .patch:after {
+  animation: furCenterPatchRightAnim 10s 0.07s cubic-bezier(0.645, 0.045, 0.355, 1) both infinite;
+  content: '';
+  position: absolute;
+  left: initial;
+  right: 25%;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(35deg) skewX(15deg);
+  box-shadow: 0 3px #BFB48C;
+  background: linear-gradient(-37deg, #BFB48C, #EFE1AF 9%, transparent 20%);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 60%;
+  border-bottom-right-radius: 8%;
+}
+
+.eevee .fur:nth-child(2) {
+  left: -3px;
+}
+
+.eevee .fur:nth-child(3) {
+  animation: furRightAnim 10s 0.15s cubic-bezier(0.645, 0.045, 0.355, 1) both infinite;
+  right: -20px;
+}
+
+.eevee .fur > .patch:before,
+.eevee .fur > .patch:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-bottom-left-radius: 100%;
+}
+
+.eevee .fur > .patch:before {
+  background: linear-gradient(-30deg, #BFB48C, #EFE1AF 6%, white 55%, transparent);
+}
+
+.eevee .fur > .patch:after {
+  background: linear-gradient(-30deg, #BFB48C, #EFE1AF 6%, white 55%, transparent);
+}
+
+.eevee .fur:not(:first-child) > .patch {
+  height: 35%;
+  width: 35%;
+  bottom: 10%;
+  left: 30%;
+}
+
+.eevee .fur:not(:first-child) > .patch:before,
+.eevee .fur:not(:first-child) > .patch:after {
+  animation: furRightPatchAnim 10s cubic-bezier(0.645, 0.045, 0.355, 1) both infinite;
+  top: -15%;
+  left: 110%;
+  transform-origin: top left;
+  box-shadow: 2px 0 #BFB48C;
+  border-top-right-radius: 75%;
+  border-bottom-right-radius: 10%;
+}
+
+.eevee .fur:not(:first-child) > .patch:before {
+  left: 150%;
+  top: -25%;
+}
+
+.eevee .fur:not(:first-child) > .patch:after {
+  animation-delay: 0.1s;
+  left: 100%;
+  top: 0%;
+}
+
+/* ========== ГОЛОВА ========== */
+.eevee .head {
+  height: 149px;
+  width: 144px;
+  top: -110px;
+  left: -35px;
+  z-index: 10;
+  animation: headAnim 10s cubic-bezier(0.645, 0.045, 0.355, 1) both infinite;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.eevee .head:after {
+  content: '';
+  position: absolute;
+  display: block;
+  height: 20%;
+  width: 20%;
+  transform: skewX(30deg) rotate(40deg);
+  left: 50%;
+  top: -2%;
+  background: #C49152;
+  box-shadow: -15px 8px #ca9d65, -25px 22px #cca069, -35px 50px #cda36f;
+  z-index: -1;
+}
+
+/* ========== ЛИЦО ========== */
+.eevee .face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to top left, #9D7442, #C49152 60%, #C49152 70%, #cca069 100%);
+  border-top-left-radius: 40% 50%;
+  border-top-right-radius: 40% 50%;
+  border-bottom-left-radius: 50% 30%;
+  border-bottom-right-radius: 50% 30%;
+}
+
+.eevee .face:before {
+  animation: headShadowAnim 10s cubic-bezier(0.645, 0.045, 0.355, 1) both infinite;
+  content: '';
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: radial-gradient(farthest-side, rgba(0,0,0,0.6), transparent);
+  z-index: -1;
+  top: 20%;
+  left: 0%;
+  border-top-left-radius: 40% 50%;
+  border-top-right-radius: 40% 50%;
+  border-bottom-left-radius: 50% 30%;
+  border-bottom-right-radius: 50% 30%;
+}
+
+/* ========== УШИ ========== */
+.eevee .ears {
+  width: 100%;
+  height: 54px;
+  z-index: -2;
+}
+
+.eevee .ear {
+  width: 160px;
+  height: 70px;
+  left: 50%;
+  bottom: 10%;
+  transform-origin: bottom left;
+  transform: translateX(40px);
+}
+
+.eevee .ear:before,
+.eevee .ear:after {
+  animation: earAnim 10s 0.05s cubic-bezier(0.645, 0.045, 0.355, 1) both infinite;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: skewX(-25deg) skewY(5deg);
+  background: radial-gradient(farthest-side, #6a3c1c, #5a2e14);
+  transform-origin: bottom left;
+  border: 12px solid #260F02;
+  border-top-left-radius: 100%;
+  border-bottom-right-radius: 100%;
+}
+
+.eevee .ear:after {
+  border: 8px solid #9D7442;
+  background: transparent;
+}
+
+.eevee .ear + .ear {
+  transform: translateX(-40px) rotateY(180deg);
+}
+
+.eevee .ear > .lobe {
+  height: 20%;
+  width: 20%;
+  background: #9D7442;
+  bottom: 25%;
+  left: -5%;
+  transform: skewX(-50deg);
+  border-top-right-radius: 15%;
+  box-shadow: 9px 6px 0 #9D7442;
+}
+
+/* ========== ГЛАЗА ========== */
+.eevee .eyes {
+  width: 77%;
+  height: 33%;
+  left: 5%;
+  top: 35%;
+  animation: eyesAnim 10s cubic-bezier(0.645, 0.045, 0.355, 1) both infinite;
+}
+
+.eevee .eye {
+  height: 100%;
+  width: 28%;
+  border-top-left-radius: 50% 65%;
+  border-top-right-radius: 50% 65%;
+  border-bottom-left-radius: 50% 35%;
+  border-bottom-right-radius: 50% 35%;
+  background-color: #260F02;
+  box-shadow: inset 0 0 0 3px #260F02;
+  background-image: 
+    radial-gradient(ellipse 5px 10px at 50% 65%, #260F02 0%, #260F02 99%, transparent 100%),
+    radial-gradient(ellipse 10px 20px at 50% 90%, #955D27 0%, #955D27 99%, transparent 100%),
+    radial-gradient(ellipse 4px 6px at 55% 20%, white 0%, white 99%, transparent 100%);
+}
+
+.eevee .eye:last-child {
+  right: 10%;
+  transform: rotateY(180deg);
+}
+
+.eevee .eye:before {
+  content: '';
+  display: block;
+  position: absolute;
+  height: 30%;
+  width: 30%;
+  background: transparent;
+  border-radius: 50%;
+  border-right: 3px solid #260F02;
+  border-left: 1px solid transparent;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  transform: rotate(-38deg);
+  top: -4px;
+  left: initial;
+  right: 2px;
+  opacity: 0.6;
+  z-index: 1;
+}
+
+.eevee .eye > .eyelid {
+  height: 102%;
+  width: 102%;
+  left: -1%;
+  top: -1%;
+  overflow: hidden;
+}
+
+.eevee .eye > .eyelid:before {
+  animation: eyelidAnim 10s cubic-bezier(0.645, 0.045, 0.355, 1) both infinite;
+  content: '';
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: #C49152;
+  border-bottom: 3px solid #260F02;
+  transform-origin: center bottom;
+  transform: translateY(-100%);
+  border-radius: 50% 50% 15% 15%;
+}
+
+/* ========== РОТ ========== */
+.eevee .mouth {
+  animation: mouthAnim 10s steps(1) both infinite,
+             mouthMoveAnim 10s cubic-bezier(0.645, 0.045, 0.355, 1) both infinite;
+  width: 12%;
+  height: 6%;
+  bottom: 13%;
+  left: 33%;
+  border-radius: 50%;
+  box-shadow: 0 -2px #260F02;
+}
+
+.eevee .mouth:before,
+.eevee .mouth:after {
+  animation: mouthSideAnim 10s steps(1) both infinite;
+  content: '';
+  display: block;
+  position: absolute;
+  width: 60%;
+  height: 100%;
+  border-radius: 50%;
+  bottom: 53%;
+  border-bottom: 2px solid #260F02;
+}
+
+.eevee .mouth:before {
+  right: 87%;
+}
+
+.eevee .mouth:after {
+  left: 87%;
+}
+
+/* ========== НОС ========== */
+.eevee .nose {
+  animation: noseAnim 10s cubic-bezier(0.645, 0.045, 0.355, 1) both infinite;
+  width: 6%;
+  height: 4%;
+  background: #260F02;
+  border-bottom-left-radius: 50% 65%;
+  border-bottom-right-radius: 50% 65%;
+  border-top-left-radius: 50% 35%;
+  border-top-right-radius: 50% 35%;
+  bottom: 26%;
+  left: 35%;
+}
+
+/* ========== ХВОСТ ========== */
+.eevee .tail {
+  height: 120px;
+  width: 120px;
+  z-index: -1;
+  animation: tailAnim 10s cubic-bezier(0.645, 0.045, 0.355, 1) both infinite;
+}
+
+.eevee .tail:before,
+.eevee .tail:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.eevee .tail:after {
+  background: #C49152;
+  border-radius: 50%;
+  transform: rotate(-135deg);
+}
+
+.eevee .body > .tail {
+  z-index: -2;
+  right: -40px;
+  top: -70px;
+}
+
+.eevee .body > .tail:after {
+  background: linear-gradient(to bottom right, #9D7442, #9D7442 20%, #C49152, #C49152);
+}
+
+.eevee .tail .tail {
+  top: -35px;
+  transform-origin: center bottom;
+  transform: scale(0.85);
+}
+
+.eevee .tail > .tail .tail {
+  z-index: 1;
+}
+
+.eevee .tail.-end {
+  top: -60px;
+}
+
+.eevee .tail.-end:after {
+  background: #EFE1AF;
+  background: linear-gradient(to bottom right, #EFE1AF, white);
+  border-radius: initial;
+  border-bottom-left-radius: 100% 50%;
+  border-top-right-radius: 50% 100%;
+  border-top-left-radius: 50%;
+}
+
+.eevee .tail.-end:before {
+  content: '';
+  display: block;
+  position: absolute;
+  background: #C49152;
+  height: 40%;
+  width: 40%;
+  z-index: 1;
+  border-radius: 50% 50% 0 0;
+  top: initial;
+  bottom: -15%;
+  left: 30%;
+  box-shadow: -20px -5px #C49152, 20px -5px #C49152;
+}
+
+.eevee .tail > .tail > .tail * {
+  animation: tailEndAnim 10s cubic-bezier(0.645, 0.045, 0.355, 1) both infinite;
+}
+
+/* ========== НОГИ ========== */
+.eevee .legs {
+  top: 70%;
+  width: 100%;
+  height: 100%;
+}
+
+.eevee .leg {
+  top: 0;
+  background: linear-gradient(to left, #9D7442, #C49152, #cca069);
+  transform-origin: center top;
+  animation: legAnim 10s cubic-bezier(0.645, 0.045, 0.355, 1) both infinite;
+}
+
+.eevee .leg,
+.eevee .leg > .inner-leg {
+  height: 40px;
+  width: 30px;
+  border-radius: 35%;
+}
+
+.eevee .leg:before,
+.eevee .leg:after {
+  content: '';
+  display: block;
+  position: absolute;
+}
+
+.eevee .leg > .inner-leg {
+  top: 50%;
+  transform-origin: center 10%;
+  animation: legInnerAnim 10s cubic-bezier(0.645, 0.045, 0.355, 1) both infinite;
+}
+
+.eevee .leg > .inner-leg:before {
+  animation: pawInnerAnim 10s cubic-bezier(0.645, 0.045, 0.355, 1) both infinite;
+}
+
+.eevee .leg:nth-child(1) {
+  left: 20px;
+  top: -2px;
+}
+
+.eevee .leg:nth-child(2) {
+  left: 70px;
+}
+
+.eevee .leg:nth-child(2) ~ * {
+  z-index: -1;
+}
+
+.eevee .leg:nth-child(2) ~ *,
+.eevee .leg:nth-child(2) ~ * > .inner-leg,
+.eevee .leg:nth-child(2) ~ * > .inner-leg:before {
+  animation-delay: 0.07s;
+}
+
+.eevee .leg:nth-child(3) {
+  left: 35px;
+  top: -10px;
+}
+
+.eevee .leg:nth-child(4) {
+  left: 90px;
+  top: -10px;
+}
+
+.eevee .inner-leg {
+  background: linear-gradient(to left, #9D7442, #C49152, #cca069);
+}
+
+.eevee .inner-leg:before {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: -10%;
+  width: 105%;
+  height: 50%;
+  border-top-left-radius: 40% 40%;
+  border-top-right-radius: 40% 40%;
+  border-bottom-left-radius: 20%;
+  border-bottom-right-radius: 20%;
+  background-image: 
+    linear-gradient(to bottom, #C49152 0%, #C49152 50%, transparent 100%),
+    linear-gradient(to right, transparent 0%, transparent 25%, rgba(0,0,0,0.5) 26%, rgba(0,0,0,0.5) 35%, transparent 36%, transparent 65%, rgba(0,0,0,0.5) 66%, rgba(0,0,0,0.5) 75%, transparent 76%),
+    linear-gradient(to top, #9D7442, #C49152, #cca069);
+}
+
+/* ========== АНИМАЦИИ ========== */
+
+@keyframes bodyAnim {
+  0%, 1%, 2%, 3%, 4%, 6%, 7%, 8%, 9%, 100% { transform: translateY(1%); }
+  0.5%, 1.5%, 2.5%, 3.5%, 6.5%, 7.5%, 8.5%, 9.5% { transform: translateY(0); }
+  4.5% { transform: translateY(4%); }
+  5% { transform: translateY(0); }
+  10% { transform: translateY(3%); }
+  10.3%, 12% { transform: translateY(-5%); }
+}
+
+@keyframes headAnim {
+  0%, 1%, 2%, 3%, 4%, 6%, 7%, 8%, 9%, 100% { transform: translateY(2%); }
+  0.5%, 1.5%, 2.5%, 3.5%, 6.5%, 7.5%, 8.5%, 9.5% { transform: translateY(0); }
+  4.5% { transform: translateY(2%) rotate(-3deg); }
+  5% { transform: translateY(-5%) rotate(7deg); }
+  10% { transform: translateY(7%) rotate(-3deg); }
+  11% { transform: translateY(-7%) rotate(3deg); }
+}
+
+@keyframes headShadowAnim {
+  0%, 1%, 2%, 3%, 4%, 6%, 7%, 8%, 9%, 100% { transform: translateY(-2%); }
+  0.5%, 1.5%, 2.5%, 3.5%, 6.5%, 7.5%, 8.5%, 9.5% { transform: translateY(1%); }
+  4.5% { transform: translateY(-5%); }
+  5% { transform: translateY(5%); }
+  10% { transform: translateY(-4%); }
+  11% { transform: translateY(10%) scale(0.9); }
+}
+
+@keyframes eyesAnim {
+  0%, 1%, 2%, 3%, 4%, 6%, 7%, 8%, 9%, 100% { transform: rotateX(-7deg) translateZ(10px); }
+  0.5%, 1.5%, 2.5%, 3.5%, 6.5%, 7.5%, 8.5%, 9.5% { transform: rotateX(7deg) translateZ(10px); }
+  10% { transform: translateY(5%) rotateX(-20deg) translateZ(10px); }
+  11% { transform: rotateX(20deg) translateZ(10px); }
+}
+
+@keyframes eyelidAnim {
+  0%, 3%, 3.2%, 10%, 12.4% { transform: translateY(-120%) rotate(-30deg); }
+  3.05%, 3.18%, 10.05%, 11.2% { transform: translateY(0) rotate(0); }
+  10.3%, 11.9% { transform: translateY(-85%) rotate(30deg); }
+}
+
+@keyframes noseAnim {
+  0%, 1%, 2%, 3%, 4%, 6%, 7%, 8%, 9%, 100% { transform: translateY(30%); }
+  0.5%, 1.5%, 2.5%, 3.5%, 6.5%, 7.5%, 8.5%, 9.5% { transform: translateY(-20%); }
+  10% { transform: translateY(70%); }
+  11% { transform: translateY(-60%); }
+}
+
+@keyframes mouthMoveAnim {
+  0%, 1%, 2%, 3%, 4%, 6%, 7%, 8%, 9%, 100% { transform: translateY(15%); }
+  0.5%, 1.5%, 2.5%, 3.5%, 6.5%, 7.5%, 8.5%, 9.5% { transform: translateY(-5%); }
+  10% { transform: translateY(30%); }
+  11% { transform: translateY(-10%); }
+}
+
+@keyframes mouthAnim {
+  0%, 11.1% { width: 12%; height: 6%; bottom: 13%; left: 33%; border-radius: 50%; box-shadow: 0 -2px #260F02; border: none; background: transparent; }
+  10.3%, 12% { height: 10%; background: #B37B7E; border-top-left-radius: 50% 60%; border-top-right-radius: 50% 60%; border-bottom-left-radius: 50% 40%; border-bottom-right-radius: 50% 40%; box-shadow: inset 0 5px #260F02; border: 2px solid #260F02; }
+}
+
+@keyframes mouthSideAnim {
+  0%, 11.1% { opacity: 1; }
+  10.3% { opacity: 0; }
+}
+
+@keyframes earAnim {
+  0.5%, 1.5%, 2.5%, 3.5%, 6.5%, 7.5%, 8.5%, 9.5% { transform: skewX(-25deg) skewY(5deg) rotateX(-20deg) rotate(-15deg); }
+  0%, 1%, 2%, 3%, 4%, 6%, 7%, 8%, 9%, 100% { transform: skewX(-25deg) skewY(5deg) rotateX(20deg) rotate(-5deg); }
+  4.7%, 4.9%, 5.1%, 5.3% { transform: skewX(-25deg) skewY(5deg) rotate(-20deg); }
+  4.8%, 5%, 5.2%, 5.6% { transform: skewX(-25deg) skewY(5deg) rotate(-10deg); }
+  10% { transform: skewX(-25deg) skewY(5deg) rotateX(20deg) rotate(-5deg); }
+  10.4%, 10.8%, 11.2%, 11.6%, 12% { transform: skewX(-25deg) skewY(5deg) rotateX(-30deg) rotate(-30deg); }
+  10.6%, 11%, 11.4%, 11.8%, 12.2% { transform: skewX(-25deg) skewY(5deg) rotateX(-20deg) rotate(-20deg); }
+}
+
+@keyframes tailAnim {
+  0%, 1%, 2%, 3%, 4%, 6%, 7%, 8%, 9%, 100% { transform: scale(0.9) rotate(-5deg); }
+  0.5%, 1.5%, 2.5%, 3.5%, 6.5%, 7.5%, 8.5%, 9.5% { transform: scale(0.9) rotate(5deg); }
+  4.4% { transform: scale(0.9) rotate(10deg); }
+  4.6%, 5%, 5.4% { transform: scale(0.9) rotate(-2deg); }
+  4.8%, 5.2%, 5.6% { transform: scale(0.9) rotate(4deg); }
+  10% { transform: scale(0.9) rotate(-7deg); }
+  11% { transform: scale(0.9) rotate(15deg); }
+}
+
+@keyframes tailEndAnim {
+  0%, 1%, 2%, 3%, 4%, 6%, 7%, 8%, 9%, 100% { transform: scale(0.9) rotate(-12deg); }
+  0.5%, 1.5%, 2.5%, 3.5%, 6.5%, 7.5%, 8.5%, 9.5% { transform: scale(0.9) rotate(9deg); }
+  4.4% { transform: scale(0.9) rotate(10deg); }
+  4.6%, 5%, 5.4% { transform: scale(0.9) rotate(-4deg); }
+  4.8%, 5.2%, 5.6% { transform: scale(0.9) rotate(12deg); }
+  10% { transform: scale(0.9) rotate(7deg); }
+  10.6%, 11%, 11.4%, 11.8% { transform: scale(0.9) rotate(-10deg); }
+  10.8%, 11.2%, 11.6%, 12% { transform: scale(0.9) rotate(2deg); }
+}
+
+@keyframes chestAnim {
+  0%, 4%, 100% { transform: translateY(0); }
+  4.5% { transform: rotate(-2deg) translateY(2%); }
+  5% { transform: rotate(2deg) translateY(-2%); }
+  9% { transform: translateY(0); }
+  10% { transform: translateY(2%); }
+  11% { transform: translateY(0); }
+}
+
+@keyframes furCenterAnim {
+  0%, 1%, 2%, 3%, 4%, 6%, 7%, 8%, 9%, 100% { transform: translateY(0); }
+  0.5%, 1.5%, 2.5%, 3.5%, 6.5%, 7.5%, 8.5%, 9.5% { transform: translateY(2%); }
+}
+
+@keyframes furCenterPatchLeftAnim {
+  0%, 1%, 2%, 3%, 4%, 6%, 7%, 8%, 9%, 100% { transform: rotate(65deg) skewX(15deg); }
+  0.5%, 1.5%, 2.5%, 3.5%, 6.5%, 7.5%, 8.5%, 9.5% { transform: rotate(60deg) skewX(15deg); }
+}
+
+@keyframes furCenterPatchRightAnim {
+  0%, 1%, 2%, 3%, 4%, 6%, 7%, 8%, 9%, 100% { transform: rotate(35deg) skewX(15deg); }
+  0.5%, 1.5%, 2.5%, 3.5%, 6.5%, 7.5%, 8.5%, 9.5% { transform: rotate(30deg) skewX(15deg); }
+}
+
+@keyframes furRightAnim {
+  0%, 1%, 2%, 3%, 4%, 6%, 7%, 8%, 9%, 100% { transform: translateY(0); }
+  0.5%, 1.5%, 2.5%, 3.5%, 6.5%, 7.5%, 8.5%, 9.5% { transform: translateY(2%); }
+}
+
+@keyframes furRightPatchAnim {
+  0%, 1%, 2%, 3%, 4%, 6%, 7%, 8%, 9%, 100% { transform: translateY(0) rotate(50deg); }
+  0.5%, 1.5%, 2.5%, 3.5%, 6.5%, 7.5%, 8.5%, 9.5% { transform: translateY(2%) rotate(56deg); }
+}
+
+@keyframes legAnim {
+  0%, 1%, 2%, 3%, 4%, 6%, 7%, 8%, 9%, 100% { transform: rotate(-12deg); }
+  0.5%, 1.5%, 2.5%, 3.5%, 6.5%, 7.5%, 8.5%, 9.5% { transform: rotate(-6deg); }
+  4.5% { transform: rotate(-16deg); }
+  5% { transform: rotate(9deg); }
+  10% { transform: translateY(-10%) rotate(-18deg); }
+  10.3%, 12% { transform: translateY(5%) rotate(0); }
+}
+
+@keyframes legInnerAnim {
+  0%, 1%, 2%, 3%, 4%, 6%, 7%, 8%, 9%, 100% { transform: rotate(28deg); }
+  0.5%, 1.5%, 2.5%, 3.5%, 6.5%, 7.5%, 8.5%, 9.5% { transform: rotate(16deg); }
+  4.5% { transform: rotate(40deg); }
+  5% { transform: rotate(-10deg); }
+  10% { transform: rotate(32deg); }
+  10.3%, 12% { transform: rotate(0); }
+}
+
+@keyframes pawInnerAnim {
+  0%, 1%, 2%, 3%, 4%, 6%, 7%, 8%, 9%, 100% { transform: rotate(-16deg); }
+  0.5%, 1.5%, 2.5%, 3.5%, 6.5%, 7.5%, 8.5%, 9.5% { transform: rotate(-10deg); }
+  4.5% { transform: rotate(-20deg); }
+  5% { transform: rotate(0deg); }
+  10% { transform: rotate(-14deg); }
+  10.3%, 12% { transform: rotate(0); }
+}
+
