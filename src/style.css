@@ -1,0 +1,66 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  background: radial-gradient(50vmin 50vmin, #FEB4FF, #A3A3EC);
+  background-position: -20vw center;
+  background-repeat: no-repeat;
+  background-color: #a3a3ec;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Lato', sans-serif;
+}
+
+@media (max-width: 600px) {
+  html, body {
+    background-position: center -20vw;
+  }
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  padding: 20px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 15px 40px;
+  border: 2px solid white;
+  border-radius: 50px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 20px;
+  font-weight: 300;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+  backdrop-filter: blur(10px);
+  font-family: 'Lato', sans-serif;
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+#eeveeContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 350px;
+}
